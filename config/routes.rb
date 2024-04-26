@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'players', to: 'players#index', as: 'players'
   get 'players/:id', to: 'players#show', as: 'player'
+  get 'tasks', to: 'tasks#index', as: 'tasks'
+  get 'tasks/:id', to: 'tasks#show', as: 'task'
 end
