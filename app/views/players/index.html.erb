@@ -1,6 +1,67 @@
-<h1>Players</h1>
-<ul>
+<head>
+  <style>
+    .my-players {
+      border: 2px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .player-name {
+      font-weight: bold;
+    }
+    .player-details {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<h1>NBA Players</h1>
+
+<div>
+  <button id="sort-by-name">Sort by Name</button>
+  <button id="sort-by-height">Sort by Height</button>
+  <button id="sort-by-age">Sort by Age</button>
+</div>
+
+<div class="players-list">
   <% @players.each do |player| %>
-    <li><%= link_to player.name, player_path(player) %></li>
+    <div class="my-players" data-name="<%= player.name %>" data-height="<%= player.height %>" data-age="<%= player.age %>">
+      <p class="player-name">Name: <%= player.name %></p>
+      <p class="player-details">Height: <%= player.height / 12 %> feet <%= player.height % 12 %> inches </p>
+      <p class="player-details">Age: <%= player.age %></p>
+    </div>
   <% end %>
-</ul>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function sortPlayers(attribute) {
+      var players = $(".my-players").toArray();
+
+      players.sort(function(a, b) {
+        var aValue = $(a).data(attribute);
+        var bValue = $(b).data(attribute);
+
+        if (aValue < bValue) return -1;
+        if (aValue > bValue) return 1;
+        return 0;
+      });
+
+      var $playersList = $(".players-list");
+      $playersList.empty(); 
+      
+      players.forEach(function(player) {
+        $playersList.append(player);
+      });
+    }
+
+    $("#sort-by-name").click(function() {
+      sortPlayers("name");
+    });
+
+    $("#sort-by-height").click(function() {
+      sortPlayers("height");
+    });
+
+    $("#sort-by-age").click(function() {
+      sortPlayers("age");
+    });
+</script>

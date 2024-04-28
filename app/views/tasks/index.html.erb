@@ -1,6 +1,28 @@
-<h1>Tasks</h1>
-<ul>
+<head>
+  <style>
+    .tasks-list {
+      border: 2px solid #ccc; 
+      padding: 10px; 
+      margin-bottom: 20px; 
+    }
+
+    
+    .my-tasks {
+      margin-bottom: 10px;
+      padding: 10px; 
+      border: 1px solid #999; 
+      border-radius: 5px; 
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<h1>My Task</h1>
+<div class="tasks-list">
   <% @tasks.each do |task| %>
-    <li><%= link_to task.name, task_path(task) %></li>
+    <div class="my-tasks">
+      <p><strong>Name:</strong> <%= task.name %></p>
+      <p><%= link_to task.name + " Description", task_path(task) %></p>
+      <p><strong>Due Date:</strong> <%= task.due_date %></p>
+    </div>
   <% end %>
-</ul>
+</div>
